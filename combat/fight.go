@@ -1,22 +1,20 @@
 package combat
 
 import (
-	"math/rand"
-
 	"lets-fight/combat/ability_engine"
 )
 
 type RoundResult struct {
 	Attacker       string
 	Defender       string
-	Ability        ability_engine.Ability
+	CastAbility    ability_engine.CastAbility
 	AttackerRestHP int
 	DefenderRestHP int
 }
 
 type CombatResult struct {
-	RoleA        Role
-	RoleB        Role
+	RedSide      string
+	BlueSide     string
 	RoundResults []RoundResult
 	Winner       string
 }
@@ -25,15 +23,10 @@ const (
 	fullHP = 100
 )
 
-func Fight(A string, B string) (combatResult CombatResult, err error) {
-	roles, err := LoadRoles()
-	if err != nil {
-		return combatResult, err
-	}
-
+func Fight(blue string, red string) (combatResult CombatResult, err error) {
 	combatResult = CombatResult{
-		RoleA: roles[A],
-		RoleB: roles[B],
+		BlueSide: blue,
+		RedSide:  red,
 	}
 
 	err = combatResult.generateRounds()
@@ -45,15 +38,14 @@ func Fight(A string, B string) (combatResult CombatResult, err error) {
 }
 
 func (combatResult *CombatResult) generateRounds() error {
-	abilityEngine := ability_engine.New()
-	roundResults := make([]RoundResult, 0)
-
-	fighters := [2]Role{combatResult.RoleA, combatResult.RoleB}
-	attackerIndex := rand.Intn(2)
-	defenderIndex := 0
-	if attackerIndex == 0 {
-		defenderIndex = 1
+	abilityEngine, err := ability_engine.New()
+	if err != nil {
+		return err
 	}
+
+	fighters := []string{combatResult.RedSide, combatResult.BlueSide}
+	roundResults := make([]RoundResult, 0)
+	attackerIndex, defenderIndex := 0, 1
 
 	attackerInitHP := fullHP
 	defenderInitHP := fullHP
@@ -62,38 +54,37 @@ func (combatResult *CombatResult) generateRounds() error {
 		defender := fighters[defenderIndex]
 
 		roundResult := RoundResult{
-			Attacker:       attacker.Name,
-			Defender:       defender.Name,
+			Attacker:       attacker,
+			Defender:       defender,
 			AttackerRestHP: attackerInitHP,
 		}
 
-		ability, err := abilityEngine.GenerateDamage()
-		roundResult.Ability = ability
+		castAbility, err := abilityEngine.GenerateCastAbility()
+		roundResult.CastAbility = castAbility
 
 		if err != nil {
 			return err
 		}
 
-		err = roundResult.abilityHandler(defenderInitHP, ability)
-		defenderRestHP := roundResult.DefenderRestHP
+		roundResult.castAbilityHandler(defenderInitHP, castAbility)
 		roundResults = append(roundResults, roundResult)
 
-		if defenderRestHP <= 0 {
-			combatResult.Winner = attacker.Name
+		if roundResult.DefenderRestHP <= 0 {
+			combatResult.Winner = attacker
 			break
 		}
 
-		attackerInitHP, defenderInitHP = defenderRestHP, attackerInitHP
+		attackerInitHP, defenderInitHP = roundResult.DefenderRestHP, attackerInitHP
 	}
 
 	combatResult.RoundResults = roundResults
 	return nil
 }
 
-func (r *RoundResult) abilityHandler(defenderInitHP int, ability ability_engine.Ability) (err error) {
-	if ability.IsDamage() {
-		r.DefenderRestHP = defenderInitHP - ability.Value
+func (r *RoundResult) castAbilityHandler(defenderInitHP int, castAbility ability_engine.CastAbility) {
+	if castAbility.IsDamage() {
+		r.DefenderRestHP = defenderInitHP - castAbility.Value
+	} else if castAbility.IsHeal() {
+		r.DefenderRestHP = defenderInitHP + castAbility.Value
 	}
-
-	return nil
 }
