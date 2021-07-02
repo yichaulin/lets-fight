@@ -1,6 +1,6 @@
 # type: 0 -> general, 1 -> skill, 2 -> ultimate
 # effect: 0 -> damage, 1 -> heal
-# level: 0 -> low, 1 -> mid, 2 -> high
+# level: 0 -> low, 1 -> mid, 2 -> high, 3 -> ultimate
 - name: 拳擊
   type: 0
   effect: 0
