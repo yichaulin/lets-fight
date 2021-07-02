@@ -1,12 +1,15 @@
 package combat
 
-import "math/rand"
+import (
+	"math/rand"
+
+	"lets-fight/combat/ability_engine"
+)
 
 type RoundResult struct {
 	Attacker       string
 	Defender       string
-	Damage         int
-	Ability        string
+	Ability        ability_engine.Ability
 	AttackerRestHP int
 	DefenderRestHP int
 }
@@ -42,6 +45,7 @@ func Fight(A string, B string) (combatResult CombatResult, err error) {
 }
 
 func (combatResult *CombatResult) generateRounds() error {
+	abilityEngine := ability_engine.New()
 	roundResults := make([]RoundResult, 0)
 
 	fighters := [2]Role{combatResult.RoleA, combatResult.RoleB}
@@ -63,14 +67,15 @@ func (combatResult *CombatResult) generateRounds() error {
 			AttackerRestHP: attackerInitHP,
 		}
 
-		err := roundResult.generateDamage(attacker.Abilities)
+		ability, err := abilityEngine.GenerateDamage()
+		roundResult.Ability = ability
 
 		if err != nil {
 			return err
 		}
 
-		defenderRestHP := defenderInitHP - roundResult.Damage
-		roundResult.DefenderRestHP = defenderRestHP
+		err = roundResult.abilityHandler(defenderInitHP, ability)
+		defenderRestHP := roundResult.DefenderRestHP
 		roundResults = append(roundResults, roundResult)
 
 		if defenderRestHP <= 0 {
@@ -85,11 +90,10 @@ func (combatResult *CombatResult) generateRounds() error {
 	return nil
 }
 
-func (c *RoundResult) generateDamage(abilities []string) (err error) {
-	damage := rand.Intn(15) + 15
-	ability := abilities[0]
+func (r *RoundResult) abilityHandler(defenderInitHP int, ability ability_engine.Ability) (err error) {
+	if ability.IsDamage() {
+		r.DefenderRestHP = defenderInitHP - ability.Value
+	}
 
-	c.Damage = damage
-	c.Ability = ability
-	return err
+	return nil
 }
