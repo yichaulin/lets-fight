@@ -49,9 +49,9 @@ func (combatResult *CombatResult) generateRounds() error {
 
 	attackerInitHP := fullHP
 	defenderInitHP := fullHP
+	attacker := fighters[attackerIndex]
+	defender := fighters[defenderIndex]
 	for {
-		attacker := fighters[attackerIndex]
-		defender := fighters[defenderIndex]
 
 		roundResult := RoundResult{
 			Attacker:       attacker,
@@ -75,6 +75,7 @@ func (combatResult *CombatResult) generateRounds() error {
 		}
 
 		attackerInitHP, defenderInitHP = roundResult.DefenderRestHP, attackerInitHP
+		attacker, defender = defender, attacker
 	}
 
 	combatResult.RoundResults = roundResults

@@ -1,40 +1,39 @@
 package ability_engine
 
 type AbilityEngine struct {
-	Abilities []Ability
+	AbilityPool AbilityPool
 }
 
 type CastAbility struct {
-	Value int
-	Type  int
-	Name  string
+	Value        int
+	Effect       int
+	ReadableType string
+	Name         string
 }
 
 func New() (abilityEngine AbilityEngine, err error) {
-	abilities, err := loadAbilities()
-
+	abilityEngine.AbilityPool, err = prepareAbilityPool()
 	if err != nil {
 		return abilityEngine, err
 	}
-
-	abilityEngine.Abilities = abilities
 
 	return abilityEngine, nil
 }
 
 func (ae AbilityEngine) GenerateCastAbility() (castAbility CastAbility, err error) {
-	ability := retrieveAbility(ae.Abilities)
+	ability := ae.AbilityPool.retrieveAbility()
 	castAbility.Name = ability.Name
-	castAbility.Type = ability.Type
+	castAbility.Effect = ability.Effect
+	castAbility.ReadableType = ability.getReadableEffect()
 	castAbility.Value = ability.generateValue()
 
 	return castAbility, nil
 }
 
 func (c CastAbility) IsDamage() bool {
-	return c.Type == DamageAbility
+	return c.Effect == DamageAbility
 }
 
 func (c CastAbility) IsHeal() bool {
-	return c.Type == HealAbility
+	return c.Effect == HealAbility
 }

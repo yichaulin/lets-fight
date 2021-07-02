@@ -1,6 +1,7 @@
 package ability_engine
 
 import (
+	"fmt"
 	"math/rand"
 	"time"
 )
@@ -13,7 +14,10 @@ func init() {
 }
 
 func getIntn(n int) int {
-	random := rand.New(randSource)
+	if n <= 0 {
+		fmt.Println("input of getIntn is <= 0")
+	}
 
+	random := rand.New(randSource)
 	return random.Intn(n)
 }

@@ -1,0 +1,14 @@
+# type: 0 -> damage, 1 -> heal
+# level: 0 -> low, 1 -> mid, 2 -> high
+- name: 拳擊
+  effect: 0
+  level: 0
+- name: 踢擊
+  effect: 0
+  level: 0
+- name: 砍一刀
+  effect: 0
+  level: 1
+- name: 開一槍
+  effect: 0
+  level: 1
