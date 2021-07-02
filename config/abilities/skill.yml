@@ -1,14 +1,19 @@
-# type: 0 -> damage, 1 -> heal
+# type: 0 -> general, 1 -> skill, 2 -> ultimate
+# effect: 0 -> damage, 1 -> heal
 # level: 0 -> low, 1 -> mid, 2 -> high, 3 -> ultimate
 - name: 橡膠槍
+  type: 1
   effect: 0
   level: 2
 - name: 雷之呼吸第一式-霹靂一閃
+  type: 1
   effect: 0
   level: 2
 - name: 飛天御劍流-龍槌閃
+  type: 1
   effect: 0
   level: 2
 - name: 三刀流
+  type: 1
   effect: 0
   level: 2

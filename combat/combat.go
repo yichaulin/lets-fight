@@ -5,18 +5,19 @@ import (
 )
 
 type RoundResult struct {
-	Attacker       string
-	Defender       string
-	CastAbility    ability_engine.CastAbility
-	AttackerRestHP int
-	DefenderRestHP int
+	RoundNum       int                        `json:"roundNum"`
+	Attacker       string                     `json:"attacker"`
+	Defender       string                     `json:"defender"`
+	CastAbility    ability_engine.CastAbility `json:"castAbility"`
+	AttackerRestHP int                        `json:"attackerRestHP"`
+	DefenderRestHP int                        `json:"defenderRestHP"`
 }
 
 type CombatResult struct {
-	Fighters     [2]string
-	RoundResults []RoundResult
-	Winner       string
-	RoundsCount  int
+	Fighters     [2]string     `json:"fighters"`
+	Winner       string        `json:"winner"`
+	RoundsCount  int           `json:"roundCounts"`
+	RoundResults []RoundResult `json:"roundResults"`
 }
 
 const (
@@ -38,12 +39,13 @@ func New(firstAttacker string, firstDefender string) (combatResult CombatResult,
 	defenderInitHP := fullHP
 	attacker := firstAttacker
 	defender := firstDefender
+	roundNum := 1
 	for {
-
 		roundResult := RoundResult{
 			Attacker:       attacker,
 			Defender:       defender,
 			AttackerRestHP: attackerInitHP,
+			RoundNum:       roundNum,
 		}
 
 		castAbility, err := abilityEngine.GenerateCastAbility()
@@ -63,6 +65,7 @@ func New(firstAttacker string, firstDefender string) (combatResult CombatResult,
 
 		attackerInitHP, defenderInitHP = roundResult.DefenderRestHP, attackerInitHP
 		attacker, defender = defender, attacker
+		roundNum++
 	}
 
 	combatResult.RoundResults = roundResults

@@ -5,10 +5,12 @@ type AbilityEngine struct {
 }
 
 type CastAbility struct {
-	Value        int
-	Effect       int
-	ReadableType string
-	Name         string
+	Name           string `json:"name"`
+	Effect         int    `json:"-"`
+	ReadableEffect string `json:"effect"`
+	Type           int    `json:"-"`
+	ReadableType   string `json:"type"`
+	Value          int    `json:"value"`
 }
 
 func New() (abilityEngine AbilityEngine, err error) {
@@ -24,7 +26,9 @@ func (ae AbilityEngine) GenerateCastAbility() (castAbility CastAbility, err erro
 	ability := ae.AbilityPool.retrieveAbility()
 	castAbility.Name = ability.Name
 	castAbility.Effect = ability.Effect
-	castAbility.ReadableType = ability.getReadableEffect()
+	castAbility.ReadableEffect = ability.getReadableEffect()
+	castAbility.Type = ability.Type
+	castAbility.ReadableType = ability.getReadableType()
 	castAbility.Value = ability.generateValue()
 
 	return castAbility, nil

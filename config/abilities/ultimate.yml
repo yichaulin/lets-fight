@@ -1,14 +1,19 @@
-# type: 0 -> damage, 1 -> heal
+# type: 0 -> general, 1 -> skill, 2 -> ultimate
+# effect: 0 -> damage, 1 -> heal
 # level: 0 -> low, 1 -> mid, 2 -> high, 3 -> ultimate
 - name: 雷之呼吸第一式-霹靂一閃（六連）
+  type: 2
   effect: 0
   level: 3
 - name: 猿王橡膠槍
+  type: 2
   effect: 0
   level: 3
 - name: 飛天御劍流-天翔龍閃
+  type: 2
   effect: 0
   level: 3
 - name: 星爆氣流斬
+  type: 2
   effect: 0
   level: 3

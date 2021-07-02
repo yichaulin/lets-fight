@@ -11,14 +11,13 @@ type Ability struct {
 	Name   string `yaml:"name"`
 	Effect int    `yaml:"effect"`
 	Level  int    `yaml:"level"`
+	Type   int    `yaml:"type"`
 }
 
-type Abilities []Ability
-
 type AbilityPool struct {
-	General  Abilities
-	Skill    Abilities
-	Ultimate Abilities
+	General  []Ability
+	Skill    []Ability
+	Ultimate []Ability
 }
 
 const (
@@ -35,6 +34,12 @@ const (
 	MidValue
 	HighValue
 	UltimateValue
+)
+
+const (
+	GeneralAbility = iota
+	SkillAbility
+	UltimateAbility
 )
 
 func (ability Ability) generateValue() int {
@@ -68,44 +73,64 @@ func (ability Ability) getReadableEffect() string {
 	}
 }
 
-func (abilityPool AbilityPool) retrieveAbility() Ability {
-	roll := getIntn(100)
-	if roll < 60 {
-		return abilityPool.General.pickOne()
-	} else if roll < 90 {
-		return abilityPool.Skill.pickOne()
-	} else {
-		return abilityPool.Ultimate.pickOne()
+func (ability Ability) getReadableType() string {
+	switch ability.Type {
+	case GeneralAbility:
+		return "General"
+	case SkillAbility:
+		return "Skill"
+	case UltimateAbility:
+		return "Ultimate"
+	default:
+		return ""
 	}
 }
 
-func (abilities Abilities) pickOne() (ability Ability) {
-	abilitiesLen := len(abilities)
-	if abilitiesLen == 0 {
-		return ability
+func (abilityPool AbilityPool) retrieveAbility() Ability {
+	roll := getIntn(100)
+	var targetAbilities []Ability
+	if roll < 60 {
+		targetAbilities = abilityPool.General
+	} else if roll < 90 {
+		targetAbilities = abilityPool.Skill
+	} else {
+		targetAbilities = abilityPool.Ultimate
 	}
 
-	return abilities[getIntn(abilitiesLen)]
+	abilitiesLen := len(targetAbilities)
+	if abilitiesLen == 0 {
+		return Ability{}
+	}
+
+	return targetAbilities[getIntn(abilitiesLen)]
+
 }
 
 func prepareAbilityPool() (abilityPool AbilityPool, err error) {
-	abilityTypes := map[string]*Abilities{
-		"general":  &abilityPool.General,
-		"skill":    &abilityPool.Skill,
-		"ultimate": &abilityPool.Ultimate,
-	}
+	files, err := os.ReadDir(abilityDir)
 
-	for key, ele := range abilityTypes {
-		filePath := fmt.Sprintf("%s/%s.yml", abilityDir, key)
-
+	for _, file := range files {
+		filePath := fmt.Sprintf("%s/%s", abilityDir, file.Name())
 		fileByte, err := os.ReadFile(filePath)
 		if err != nil {
 			return abilityPool, err
 		}
 
-		err = yaml.Unmarshal(fileByte, &ele)
+		var abs []Ability
+		err = yaml.Unmarshal(fileByte, &abs)
 		if err != nil {
 			return abilityPool, err
+		}
+
+		for _, a := range abs {
+			switch a.Type {
+			case GeneralAbility:
+				abilityPool.General = append(abilityPool.General, a)
+			case SkillAbility:
+				abilityPool.Skill = append(abilityPool.Skill, a)
+			case UltimateAbility:
+				abilityPool.Ultimate = append(abilityPool.Ultimate, a)
+			}
 		}
 
 	}
