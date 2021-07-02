@@ -1,26 +1,21 @@
 package main
 
 import (
-	"encoding/json"
-	"fmt"
-	"lets-fight/combat"
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+
+	"lets-fight/controller"
 )
 
 func main() {
-	combatResult, err := combat.Fight("saber", "archer")
+	r := gin.Default()
+	r.GET("/combat", controller.CombatController)
+	r.GET("/welcome", func(c *gin.Context) {
+		fighters := c.QueryArray("fighters[]")
+		qqq := c.Query("qqq")
 
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	fmt.Printf("%+v", combatResult)
-	PrettyPrint(combatResult)
-}
-
-func PrettyPrint(v interface{}) (err error) {
-	b, err := json.MarshalIndent(v, "", "  ")
-	if err == nil {
-		fmt.Println(string(b))
-	}
-	return
+		c.String(http.StatusOK, "Hello %s %s", fighters, qqq)
+	})
+	r.Run()
 }
