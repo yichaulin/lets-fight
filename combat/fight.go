@@ -13,44 +13,31 @@ type RoundResult struct {
 }
 
 type CombatResult struct {
-	RedSide      string
-	BlueSide     string
+	Fighters     [2]string
 	RoundResults []RoundResult
 	Winner       string
+	RoundsCount  int
 }
 
 const (
 	fullHP = 100
 )
 
-func Fight(blue string, red string) (combatResult CombatResult, err error) {
+func New(firstAttacker string, firstDefender string) (combatResult CombatResult, err error) {
 	combatResult = CombatResult{
-		BlueSide: blue,
-		RedSide:  red,
+		Fighters: [2]string{firstAttacker, firstDefender},
 	}
+	abilityEngine, err := ability_engine.New()
 
-	err = combatResult.generateRounds()
 	if err != nil {
 		return combatResult, err
 	}
 
-	return combatResult, nil
-}
-
-func (combatResult *CombatResult) generateRounds() error {
-	abilityEngine, err := ability_engine.New()
-	if err != nil {
-		return err
-	}
-
-	fighters := []string{combatResult.RedSide, combatResult.BlueSide}
 	roundResults := make([]RoundResult, 0)
-	attackerIndex, defenderIndex := 0, 1
-
 	attackerInitHP := fullHP
 	defenderInitHP := fullHP
-	attacker := fighters[attackerIndex]
-	defender := fighters[defenderIndex]
+	attacker := firstAttacker
+	defender := firstDefender
 	for {
 
 		roundResult := RoundResult{
@@ -63,7 +50,7 @@ func (combatResult *CombatResult) generateRounds() error {
 		roundResult.CastAbility = castAbility
 
 		if err != nil {
-			return err
+			return combatResult, err
 		}
 
 		roundResult.castAbilityHandler(defenderInitHP, castAbility)
@@ -79,7 +66,8 @@ func (combatResult *CombatResult) generateRounds() error {
 	}
 
 	combatResult.RoundResults = roundResults
-	return nil
+	combatResult.RoundsCount = len(roundResults)
+	return combatResult, nil
 }
 
 func (r *RoundResult) castAbilityHandler(defenderInitHP int, castAbility ability_engine.CastAbility) {
