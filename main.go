@@ -11,11 +11,8 @@ import (
 func main() {
 	r := gin.Default()
 	r.GET("/combat", controller.CombatController)
-	r.GET("/welcome", func(c *gin.Context) {
-		fighters := c.QueryArray("fighters[]")
-		qqq := c.Query("qqq")
-
-		c.String(http.StatusOK, "Hello %s %s", fighters, qqq)
+	r.GET("/health", func(c *gin.Context) {
+		c.String(http.StatusOK, "Let's fight backend")
 	})
 	r.Run()
 }
