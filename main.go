@@ -10,9 +10,13 @@ import (
 
 func main() {
 	r := gin.Default()
-	r.GET("/combat", controller.CombatController)
-	r.GET("/health", func(c *gin.Context) {
-		c.String(http.StatusOK, "Let's fight backend")
-	})
+	api := r.Group("/api")
+	{
+		api.GET("/combat", controller.CombatController)
+		api.GET("/health", func(c *gin.Context) {
+			c.String(http.StatusOK, "Let's fight backend")
+		})
+	}
+
 	r.Run()
 }
