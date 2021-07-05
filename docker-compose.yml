@@ -1,0 +1,5 @@
+services:
+  lets-fight:
+    image: yichaulin/lets-fight:latest
+    ports:
+        - 8080:8080
