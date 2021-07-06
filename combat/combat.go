@@ -24,9 +24,19 @@ const (
 	fullHP = 100
 )
 
-func New(firstAttacker string, firstDefender string) (combatResult CombatResult, err error) {
+func New(fighters [2]string) (combatResult CombatResult, err error) {
+
+	firstAttackerIndex := ability_engine.GetIntn(2)
+	firstDefenderIndex := 0
+	if firstAttackerIndex == 0 {
+		firstDefenderIndex = 1
+	}
+
+	firstAttacker := fighters[firstAttackerIndex]
+	firstDefender := fighters[firstDefenderIndex]
+
 	combatResult = CombatResult{
-		Fighters: [2]string{firstAttacker, firstDefender},
+		Fighters: fighters,
 	}
 	abilityEngine, err := ability_engine.New()
 

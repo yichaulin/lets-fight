@@ -8,13 +8,14 @@ import (
 )
 
 func CombatController(c *gin.Context) {
-	fighters := c.QueryArray("fighters[]")
-	if len(fighters) < 2 {
+	fightersParam := c.QueryArray("fighters[]")
+	if len(fightersParam) < 2 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "No. of fighters is less than 2"})
 		return
 	}
-
-	combatResult, err := combat.New(fighters[0], fighters[1])
+	var fighters [2]string
+	copy(fighters[:], fightersParam[:2])
+	combatResult, err := combat.New(fighters)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err})
