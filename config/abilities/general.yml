@@ -1,19 +1,60 @@
 # type: 0 -> general, 1 -> skill, 2 -> ultimate
 # effect: 0 -> damage, 1 -> heal
-# level: 0 -> low, 1 -> mid, 2 -> high, 3 -> ultimate
-- name: 拳擊
+# level: 0 -> low, 1 -> light, 2 -> mid, 3 -> high, 4 -> ultimate
+- name: 右勾拳
   type: 0
   effect: 0
   level: 0
-- name: 踢擊
+- name: 左勾拳
   type: 0
   effect: 0
   level: 0
-- name: 砍一刀
+- name: 上勾拳
+  type: 0
+  effect: 0
+  level: 0
+- name: 下劈腿
+  type: 0
+  effect: 0
+  level: 0
+- name: 旋踢
+  type: 0
+  effect: 0
+  level: 0
+- name: 斬擊
+  type: 0
+  effect: 0
+  level: 0
+- name: 刺擊
+  type: 0
+  effect: 0
+  level: 0
+
+
+# 武術
+- name: 霍家拳
   type: 0
   effect: 0
   level: 1
-- name: 開一槍
+- name: 詠春拳
+  type: 0
+  effect: 0
+  level: 1
+- name: 太極拳
+  type: 0
+  effect: 0
+  level: 1
+- name: 十二路譚腿
+  type: 0
+  effect: 0
+  level: 1
+- name: 八極拳
+  type: 0
+  effect: 0
+  level: 1
+
+# 其他
+- name: 大力金剛腿
   type: 0
   effect: 0
   level: 1

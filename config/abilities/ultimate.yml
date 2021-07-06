@@ -1,19 +1,82 @@
 # type: 0 -> general, 1 -> skill, 2 -> ultimate
 # effect: 0 -> damage, 1 -> heal
-# level: 0 -> low, 1 -> mid, 2 -> high, 3 -> ultimate
-- name: 雷之呼吸第一式-霹靂一閃（六連）
+# level: 0 -> low, 1 -> light, 2 -> mid, 3 -> high, 4 -> ultimate
+
+# 海賊王
+- name: 伸縮自如的・大猿王槍
   type: 2
   effect: 0
-  level: 3
-- name: 猿王橡膠槍
+  level: 4
+- name: 三刀流奧義・大千世界
   type: 2
   effect: 0
-  level: 3
-- name: 飛天御劍流-天翔龍閃
+  level: 4
+
+# 鬼滅之刃
+- name: 水之呼吸拾之式・生生流轉
   type: 2
   effect: 0
-  level: 3
+  level: 4
+- name: 雷之呼吸漆之型・火雷神
+  type: 2
+  effect: 0
+  level: 4
+- name: 炎之呼吸奧義玖之型・煉獄
+  type: 2
+  effect: 0
+  level: 4
+
+
+# 神劍闖江湖
+- name: 飛天御劍流奧義・天翔龍閃
+  type: 2
+  effect: 0
+  level: 4
+
+# SOA
 - name: 星爆氣流斬
   type: 2
   effect: 0
-  level: 3
+  level: 4
+
+# FATE
+- name: Excalibur(誓約勝利之劍)
+  type: 2
+  effect: 0
+  level: 4
+- name: Unlimited Blade Works(無限劍制)
+  type: 2
+  effect: 0
+  level: 4
+
+# 快打旋風
+- name: 真空波動拳
+  type: 2
+  effect: 0
+  level: 4
+
+# KOF
+- name: 最終決戰奧義・無式
+  type: 2
+  effect: 0
+  level: 4
+- name: 禁千貳百拾壹式・八稚女
+  type: 2
+  effect: 0
+  level: 4
+
+# 火影
+- name: 雷遁奧義・麒麟
+  type: 2
+  effect: 0
+  level: 4
+- name: 萬花瞳血輪眼・天照
+  type: 2
+  effect: 0
+  level: 4
+- name: 六道・超大玉螺旋手裏劍
+  type: 2
+  effect: 0
+  level: 4
+
+

@@ -1,19 +1,114 @@
 # type: 0 -> general, 1 -> skill, 2 -> ultimate
 # effect: 0 -> damage, 1 -> heal
-# level: 0 -> low, 1 -> mid, 2 -> high, 3 -> ultimate
-- name: 橡膠槍
+# level: 0 -> low, 1 -> light, 2 -> mid, 3 -> high, 4 -> ultimate
+
+# 海賊王
+- name: 伸縮自如的・橡膠百烈拳
   type: 1
   effect: 0
   level: 2
-- name: 雷之呼吸第一式-霹靂一閃
+- name: 伸縮自如的・JET槍亂打
+  type: 1
+  effect: 0
+  level: 3
+- name: 單刀流・居合獅子歌歌
   type: 1
   effect: 0
   level: 2
-- name: 飛天御劍流-龍槌閃
+- name: 二刀流・七十二煩惱鳳
+  type: 1
+  effect: 0
+  level: 3
+
+
+# 鬼滅之刃
+- name: 水之呼吸貳之型・水車
   type: 1
   effect: 0
   level: 2
-- name: 三刀流
+- name: 水之呼吸捌之型・瀧壺
+  type: 1
+  effect: 0
+  level: 3
+- name: 雷之呼吸壹之型・霹靂一閃
   type: 1
   effect: 0
   level: 2
+- name: 雷之呼吸壹之型・霹靂一閃（六連）
+  type: 2
+  effect: 0
+  level: 3
+- name: 炎之呼吸貳之型・上昇炎天
+  type: 1
+  effect: 0
+  level: 2
+- name: 炎之呼吸伍之型・炎虎
+  type: 1
+  effect: 0
+  level: 3
+
+# 神劍闖江湖
+- name: 飛天御劍流・龍槌閃
+  type: 1
+  effect: 0
+  level: 2
+- name: 飛天御劍流・九頭龍閃
+  type: 1
+  effect: 0
+  level: 3
+
+# 快打旋風
+- name: 波動拳
+  type: 2
+  effect: 0
+  level: 2
+- name: 昇龍拳
+  type: 2
+  effect: 0
+  level: 3
+
+# 武術
+- name: 黯然消魂掌
+  type: 0
+  effect: 0
+  level: 3
+- name: 降龍十八掌
+  type: 0
+  effect: 0
+  level: 3
+
+# KOF
+- name: 百式・鬼燒
+  type: 0
+  effect: 0
+  level: 2
+- name: 裏百八式・大蛇薙
+  type: 0
+  effect: 0
+  level: 3
+- name: 貳百拾七式・葵花
+  type: 0
+  effect: 0
+  level: 2
+- name: 裏百八式・八酒杯
+  type: 0
+  effect: 0
+  level: 3
+
+# 火影
+- name: 火遁・豪火球
+  type: 2
+  effect: 0
+  level: 2
+- name: 雷遁・千鳥
+  type: 2
+  effect: 0
+  level: 3
+- name: 螺旋丸
+  type: 2
+  effect: 0
+  level: 2
+- name: 風遁・螺旋手裡劍
+  type: 2
+  effect: 0
+  level: 3
