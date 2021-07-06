@@ -31,6 +31,7 @@ const (
 
 const (
 	LowValue = iota
+	LightValue
 	MidValue
 	HighValue
 	UltimateValue
@@ -47,16 +48,19 @@ func (ability Ability) generateValue() int {
 	switch ability.Level {
 	case LowValue:
 		baseValue = 1
-		floatValue = getIntn(4)
-	case MidValue:
+		floatValue = GetIntn(3)
+	case LightValue:
 		baseValue = 5
-		floatValue = getIntn(5)
-	case HighValue:
+		floatValue = GetIntn(4)
+	case MidValue:
 		baseValue = 10
-		floatValue = getIntn(10)
+		floatValue = GetIntn(4)
+	case HighValue:
+		baseValue = 15
+		floatValue = GetIntn(4)
 	case UltimateValue:
 		baseValue = 20
-		floatValue = getIntn(15)
+		floatValue = GetIntn(10)
 	}
 
 	return baseValue + floatValue
@@ -87,11 +91,11 @@ func (ability Ability) getReadableType() string {
 }
 
 func (abilityPool AbilityPool) retrieveAbility() Ability {
-	roll := getIntn(100)
+	roll := GetIntn(100)
 	var targetAbilities []Ability
-	if roll < 60 {
+	if roll < 40 {
 		targetAbilities = abilityPool.General
-	} else if roll < 90 {
+	} else if roll < 80 {
 		targetAbilities = abilityPool.Skill
 	} else {
 		targetAbilities = abilityPool.Ultimate
@@ -102,7 +106,7 @@ func (abilityPool AbilityPool) retrieveAbility() Ability {
 		return Ability{}
 	}
 
-	return targetAbilities[getIntn(abilitiesLen)]
+	return targetAbilities[GetIntn(abilitiesLen)]
 
 }
 

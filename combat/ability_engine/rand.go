@@ -13,7 +13,7 @@ func init() {
 	randSource = rand.NewSource(seed)
 }
 
-func getIntn(n int) int {
+func GetIntn(n int) int {
 	if n <= 0 {
 		fmt.Println("input of getIntn is <= 0")
 	}
